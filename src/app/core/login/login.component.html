@@ -1,21 +1,21 @@
 
 <div class="login-container">
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitData()">
 
-  <div class="login-wrap">
+    <img class="login-form__img" src="../../../assets/images/logo-psl-2019.png" alt="psl_logo">
 
-    <span class="login-wrap__text">
-      Email
+    <span class="login-form__title">
+      InterHelper
     </span>
 
-    <input class="login-wrap__input" type="email" placeholder="Username">
+    <div class="login-form__validation">
+      <input class="login-form__validation__input" type="email" placeholder="Email" formControlName="Email">
+    </div>
 
-    <span class="login-wrap__text">
-      Usuario
-    </span>
+    <div class="login-form__validation">
+      <input class="login-form__validation__input" type="password" style="font-size: 22px" placeholder="Password" formControlName="password">
+    </div>
 
-    <input class="login-wrap__input" type="password" placeholder="Password">
-    
-    <button class="login-wrap__btn" type="submit"> Login </button>
-  </div>
-
+    <button class="login-form__btn" type="submit"> LOGIN </button>
+  </form>
 </div>
