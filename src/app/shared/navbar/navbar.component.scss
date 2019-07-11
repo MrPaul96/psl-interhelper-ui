@@ -7,10 +7,34 @@
   background-color: $purple_logo_psl;
   height: 60px;
   align-items: center;
+  justify-content: space-between;
 
   &__logo {
     height: 50px;
     width: 100px;
+  }
+
+  &__signOut-btn{
+    height: 40px;
+    color: white;
+    font-family: $main_font;
+    font-size: 15px;
+    width: 100px;
+    background: #007bff;
+    font-weight: bold;
+    margin-right: 30px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+
+    &__icon{
+      font-size: 25px;
+    }
+
+    &:after{
+      background: blue;
+    }
   }
 
 }

@@ -20,8 +20,8 @@ import { InterhelperRoutingModule } from './app-routing.module';
     CoreModule,
     StaffModule,
     SharedModule,
-    RouterModule,
-    InterhelperRoutingModule
+    InterhelperRoutingModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
