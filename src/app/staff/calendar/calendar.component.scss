@@ -1,0 +1,68 @@
+@import '../../../assets/scss/variables';
+
+@mixin calendar_control_button($size, $height, $width) {
+  font-size: 30px;
+  height: $size * 1.6;
+  width: $size * 1.5;
+  display: flex;
+  justify-content: center;
+  background-color: $blue_logo_psl;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+
+.calendar-container {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+
+  &__wrap-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    $size: 1.8rem;
+
+    &__text {
+      font-family: $main_font;
+      font-weight: bold;
+      color: #333;
+      font-size: 18px;
+    }
+
+    &__button-left {
+      @include calendar_control_button($size, $size*1.6, $size*1.5);
+      margin-right: 30px;
+      border-bottom-left-radius: $size * 2;
+      border-top-left-radius: $size * 2;
+    }
+
+    &__button-right {
+      @include calendar_control_button($size, $size*1.6, $size*1.5);
+      border-bottom-right-radius: $size * 2;
+      border-top-right-radius: $size * 2;
+      margin-left: 30px;
+    }
+  }
+
+  &__wrap-view-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    $size_view: 2.5rem;
+    &__month{
+      @include calendar_control_button($size_view, $size_view*1.6, $size_view*1.5);
+      border-bottom-left-radius: 3rem * 2;
+      border-top-left-radius: 3rem * 2;
+    }
+
+    &__week{
+      @include calendar_control_button($size_view, $size_view*1.6, $size_view*1.5);
+      border-bottom-right-radius: 1.8rem * 2;
+      border-top-right-radius: 1.8rem * 2;
+    }
+
+  }
+}
