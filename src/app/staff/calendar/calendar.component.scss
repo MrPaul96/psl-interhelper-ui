@@ -2,45 +2,51 @@
 
 @mixin calendar_control_button($size, $height, $width) {
   font-size: 30px;
-  height: $size * 1.6;
-  width: $size * 1.5;
+  height: $height;
+  width: $width;
   display: flex;
   justify-content: center;
-  background-color: $blue_logo_psl;
+  background-color: $blue_bootstrap;
   align-items: center;
   cursor: pointer;
   color: white;
+  font-weight: bold;
+  border: none;
 }
 
-.calendar-container {
-  width: 70%;
+.calendar-header {
+  width: 80%;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   &__wrap-controls {
     display: flex;
     justify-content: center;
     align-items: center;
     $size: 1.8rem;
+    box-shadow: inset 0 0 1em gold;
+    border-radius: 25px;
 
     &__text {
       font-family: $main_font;
       font-weight: bold;
       color: #333;
       font-size: 18px;
+      cursor: pointer;
     }
 
     &__button-left {
-      @include calendar_control_button($size, $size*1.6, $size*1.5);
+      @include calendar_control_button($size, $size*1.4, $size*1.5);
       margin-right: 30px;
       border-bottom-left-radius: $size * 2;
       border-top-left-radius: $size * 2;
     }
 
     &__button-right {
-      @include calendar_control_button($size, $size*1.6, $size*1.5);
+      @include calendar_control_button($size, $size*1.4, $size*1.5);
       border-bottom-right-radius: $size * 2;
       border-top-right-radius: $size * 2;
       margin-left: 30px;
@@ -52,17 +58,41 @@
     justify-content: center;
     align-items: center;
     $size_view: 2.5rem;
+    font-family: $main_font;
     &__month{
-      @include calendar_control_button($size_view, $size_view*1.6, $size_view*1.5);
+      @include calendar_control_button($size_view, $size_view*1.2, $size_view*2);
       border-bottom-left-radius: 3rem * 2;
       border-top-left-radius: 3rem * 2;
+      font-size: 16px;
+      border-right: 2px solid #CCC;
     }
 
     &__week{
-      @include calendar_control_button($size_view, $size_view*1.6, $size_view*1.5);
+      @include calendar_control_button($size_view, $size_view*1.2, $size_view*2);
       border-bottom-right-radius: 1.8rem * 2;
       border-top-right-radius: 1.8rem * 2;
+      font-size: 16px;
     }
 
   }
+
+  &__btn{
+    font-family: $main_font;
+    font-size: 16px;
+    line-height: 1.5;
+    color: white;
+    width: 200px;
+    height: 40px;
+    border-radius: 25px;
+    background: $blue_bootstrap;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.calendar-container{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
 }

@@ -1,28 +1,63 @@
-<div class="calendar-container">
+<div class="calendar-header">
 
+  <div class="calendar-header__wrap-view-type">
+    <div class="btn btn-secondary calendar-header__wrap-view-type__month"
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"   
+     >
+      Month
+    </div>
+    <div class="btn btn-secondary calendar-header__wrap-view-type__week"
+         (click)="setView(CalendarView.Week)"
+         [class.active]="view === CalendarView.Week"   
+     >
+      Week
+    </div>
+  </div>
 
-  <div class="calendar-container__wrap-controls">
-    <div class="calendar-container__wrap-controls__button-left">
+  <div class="calendar-header__wrap-controls">
+    <div class="btn btn-primary calendar-header__wrap-controls__button-left"
+         mwlCalendarPreviousView
+         [view]="view"
+         [(viewDate)]="viewDate"
+        >
       <i class="fas fa-chevron-left"></i>
     </div>
-    <span class="calendar-container__wrap-controls__text">
-      12 September, 2019
-    </span>
-    <div class="calendar-container__wrap-controls__button-right">
+    <span class="calendar-header__wrap-controls__text"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"  
+        >
+        {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+  </span>
+    <div class="btn btn-primary calendar-header__wrap-controls__button-right"
+         mwlCalendarNextView
+         [view]="view"
+         [(viewDate)]="viewDate"
+        >
       <i class="fas fa-chevron-right"></i>
     </div>
   </div>
 
+  <button class="btn btn-primary calendar-header__btn" type="submit"> Program Interview </button>
 
-  <div class="calendar-container__wrap-view-type">
-    <div class="calendar-container__wrap-view-type__month">
-      Month
+</div>
 
-    </div>
 
-    <div class="calendar-container__wrap-view-type__week">
-      Week
-    </div>
+<div class="calendar-container">
+
+  <div [ngSwitch]="view">
+
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      >
+    </mwl-calendar-week-view>
+    
   </div>
 
 </div>
