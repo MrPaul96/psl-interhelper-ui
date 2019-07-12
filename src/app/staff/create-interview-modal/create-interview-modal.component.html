@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h5 class="modal-title">Program an interview</h5>
+</div>
+<div class="modal-container">
+    <div class="modal-container__element">
+        <span class="modal-container__element__text">
+            Candidate
+        </span>
+        <input class="modal-container__element__input"
+            placeholder="user@hotmail.com">
+    </div>
+    <div class="modal-container__element">
+        <span class="modal-container__element__text">
+            PSL Interviewer
+        </span>
+        <input class="modal-container__element__input"
+            placeholder="svelezr@psl.com.co">
+    </div>
+    <div class="modal-container__element">
+        <label class="modal-container__element__text" for="date">
+            Date
+        </label>
+        <div class="modal-container__element__date-wrap">
+            <input class="modal-container__element__date-wrap__input"
+                type="text"
+                name="date"
+                ngbDatepicker
+                #d1="ngbDatepicker"
+                placeholder="Select a date"
+                />
+            <button type="button"
+                class="btn btn-primary modal-container__element__date-wrap__btn"
+                (click)="d1.toggle()">
+                <i class="fas fa-calendar-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-container__element">
+        <span class="modal-container__element__text">
+           Start Time
+        </span>
+        <app-time-picker></app-time-picker>
+    </div>
+</div>

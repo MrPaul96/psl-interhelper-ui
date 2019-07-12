@@ -6,7 +6,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { SharedModule } from '../shared/shared.module';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CreateInterviewModalComponent } from './create-interview-modal/create-interview-modal.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,9 +16,13 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    NgbModule.forRoot()
   ],
-  declarations: [DashboardComponent, CalendarComponent],
+  entryComponents: [
+    CreateInterviewModalComponent
+  ],
+  declarations: [DashboardComponent, CalendarComponent, CreateInterviewModalComponent],
   exports: [
     DashboardComponent
   ]
