@@ -7,6 +7,7 @@ import { Interview } from '../../core/models/interview.model';
 import { StaffService } from '../services/staff.service';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AlertService } from '../../shared/notifications/alert.service';
 import { InterviewService } from '../../core/services/interview.service';
 @Component({
@@ -36,9 +37,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   getInterviews() {
     this.interviewService.getInterviews()
+                         .pipe(takeUntil(this.destroy$))
                          .subscribe((interviews: Interview[]) => {
                           this.interviews = interviews;
-                          console.log()
+                          this.resetCalendarEvents();
                           this.getCalendarEvents();
                           this.refresh.next();
                          });
@@ -62,6 +64,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       start: new Date(interview.startTime),
       end: new Date(interview.endTime),
       color: colorStatus,
+      id: interview.id
     };
 
     this.calendarEvents.push(event);
@@ -77,13 +80,17 @@ export class CalendarComponent implements OnInit, OnDestroy {
   createInterview() {
 
     const modalRef = this.modalService.open(CreateInterviewModalComponent);
-    modalRef.componentInstance.interviewToDB.subscribe(
-       (interview: Interview) => {
-         this.interviewService.addInterview(interview);
-         this.alertService.showMessage('Interview has been created', 'success', false);
-         this.refresh.next();
-       }
-    );
+    modalRef.componentInstance.interviewToDB
+            .pipe(takeUntil(this.destroy$))
+            .subscribe( (interview: Interview) => {
+              this.interviewService.addInterview(interview);
+              this.alertService.showMessage('Interview has been created', 'success', false);
+              this.refresh.next();
+             });
+  }
+
+  resetCalendarEvents() {
+    this.calendarEvents = [];
   }
 
   ngOnDestroy() {
