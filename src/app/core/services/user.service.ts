@@ -43,7 +43,7 @@ export class UserService {
     }
 
     verficateUserRole(user: User, rol: string): User {
-        if (_.get(user, `role[${rol}]`, null)) {
+        if ( _.get(user, `role[${rol}]` )) {
             return user;
         }
     }

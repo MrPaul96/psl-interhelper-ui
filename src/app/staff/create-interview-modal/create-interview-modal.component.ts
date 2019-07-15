@@ -1,26 +1,31 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
 import { availableJobs } from '../../shared/utils/jobs.constants';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Interview } from '../../core/models/interview.model';
 import { User } from '../../core/models/user.model';
 import { StaffService } from '../services/staff.service';
+import { UserService } from '../../core/services/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-create-interview-modal',
   templateUrl: './create-interview-modal.component.html',
   styleUrls: ['./create-interview-modal.component.scss']
 })
-export class CreateInterviewModalComponent implements OnInit {
+export class CreateInterviewModalComponent implements OnInit, OnDestroy {
 
   private jobs: string[];
   private interviewForm: FormGroup;
   private interviewers: User[] = [];
   private candidates: User[] = [];
+  private destroy$: Subject<boolean> = new Subject();
   @Output() interviewToDB =  new EventEmitter<Interview>();
 
   constructor(private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private staffService: StaffService
+    private staffService: StaffService,
+    private userService: UserService
     ) {
   }
 
@@ -44,71 +49,26 @@ export class CreateInterviewModalComponent implements OnInit {
     );
   }
 
-  getCandidates() {
-    const candidate1: User = {
-      id: '77747',
-      name: 'Paul',
-      email: 'romafusion@hotmail.com',
-      role: {
-        candidate: true
-      }
-    };
-
-    this.candidates = [ candidate1 ];
+  getCandidates(): void {
+    this.userService.getUsersByRole('candidate')
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((candidates: User[]) => this.candidates = candidates);
   }
 
-  getInterviewers() {
-
-    const interviewer1: User = {
-      id: '2344233213asdsad',
-      name: 'Luis Cervantes',
-      email: 'lcervanteso@psl.com.co',
-      role: {
-        interviewer: true
-      },
-      job: 'Frontend Lead'
-    };
-
-    const interviewer2: User = {
-      id: '234423321qwweq3asdsad',
-      name: 'Adrian Jimenez',
-      email: 'ajimenezc@psl.com.co',
-      role: {
-        interviewer: true
-      },
-      job: 'Frontend'
-    };
-
-    const interviewer3: User = {
-      id: '23442332www13asdsad',
-      name: 'Andres Romero',
-      email: 'aromerov@psl.com.co',
-      role: {
-        interviewer: true
-      },
-      job: 'Backend Lead'
-    };
-
-    const interviewer4: User = {
-      id: '23442332www13asdsad55',
-      name: 'Pablo Villegas',
-      email: 'pvillegasg@psl.com.co',
-      role: {
-        interviewer: true
-      },
-      job: 'Frontend'
-    };
-
-    this.interviewers = [interviewer1, interviewer2, interviewer3, interviewer4];
+  getInterviewers(): void {
+    this.userService.getUsersByRole('interviewer')
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((interviewers: User[]) => this.interviewers = interviewers);
   }
 
-  submitForm() {
+  submitForm(): void {
    if (this.interviewForm) {
     const startTime = this.getDateWithTime(this.interviewForm.value['date'], this.interviewForm.value['startTime']);
     const endTime = this.getDateWithTime(this.interviewForm.value['date'], this.interviewForm.value['endTime']);
 
     const interview = this.getInterviewObject(startTime, endTime);
     this.interviewToDB.emit(interview);
+    this.activeModal.close();
    }
   }
 
@@ -135,4 +95,9 @@ export class CreateInterviewModalComponent implements OnInit {
     const stringDate = this.staffService.convertDateInputIntoString(date);
     return `${stringDate} ${time.hour}:${time.minute}`;
   }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+  }
+
 }

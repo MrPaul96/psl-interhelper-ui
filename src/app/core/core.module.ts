@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { AuthGuardStaff } from './guards/staff.guard';
+import { InterviewService } from './services/interview.service';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { AuthGuardStaff } from './guards/staff.guard';
   providers: [
     AuthService,
     UserService,
+    InterviewService,
     AngularFirestore,
     AngularFireAuth,
     AuthGuardStaff

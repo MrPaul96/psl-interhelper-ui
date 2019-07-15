@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 import { colors } from './event.colors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,29 +8,41 @@ import { StaffService } from '../services/staff.service';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { AlertService } from '../../shared/notifications/alert.service';
+import { InterviewService } from '../../core/services/interview.service';
 @Component({
   selector: 'app-staff-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
-  currentView: CalendarView = CalendarView.Month; // CurrentView is the actual view Month / Week
-  CalendarView = CalendarView;
-  viewDate: Date = new Date();
-  calendarEvents: CalendarEvent[] = [];
-  interviews: Interview[] = [];
-  refresh: Subject<any> = new Subject();
-  testEvent: CalendarEvent;
+  private currentView: CalendarView = CalendarView.Month; // CurrentView is the actual view Month / Week
+  private CalendarView = CalendarView;
+  private viewDate: Date = new Date();
+  private calendarEvents: CalendarEvent[] = [];
+  private interviews: Interview[] = [];
+  private refresh: Subject<any> = new Subject();
+  private destroy$: Subject<boolean> = new Subject();
 
   constructor(private modalService: NgbModal,
               private staffService: StaffService,
+              private interviewService: InterviewService,
               private alertService: AlertService) {
   }
 
   ngOnInit() {
-    this.interviews = this.staffService.fakeInterviews;
-    this.getCalendarEvents();
+    this.getInterviews();
+  }
+
+  getInterviews() {
+    this.interviewService.getInterviews()
+                         .subscribe((interviews: Interview[]) => {
+                          this.interviews = interviews;
+                          console.log()
+                          this.getCalendarEvents();
+                          this.refresh.next();
+                         });
+
   }
 
 
@@ -67,11 +79,15 @@ export class CalendarComponent implements OnInit {
     const modalRef = this.modalService.open(CreateInterviewModalComponent);
     modalRef.componentInstance.interviewToDB.subscribe(
        (interview: Interview) => {
-         this.staffService.fakeInterviews.push(interview);
-         this.addCalendarEvent(interview);
+         this.interviewService.addInterview(interview);
+         this.alertService.showMessage('Interview has been created', 'success', false);
          this.refresh.next();
        }
     );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
   }
 
 }

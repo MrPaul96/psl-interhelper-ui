@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../shared/notifications/alert.service';
+import { Component } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,15 +7,11 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  constructor(private alertService: AlertService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router
           ) { }
-
-  ngOnInit() {
-  }
 
   onClickLogOut() {
     this.authService.logOut().subscribe(() => {

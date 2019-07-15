@@ -38,8 +38,6 @@ export class LoginComponent implements OnInit {
 
   /*Missing validation with DT"*/
   submitData() {
-    // this.alertService.showMessage('Loading...', 'info', true);
-
     this.authService.logIn(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       data => this.getUserInDatabase(data['user'].uid),
       error => this.alertService.showMessage(error.message, 'error', false)
