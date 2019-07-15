@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { LoginComponent } from './core/login/login.component';
+import { LoginComponent } from './core/auth/login/login.component';
 import { DashboardComponent } from './staff/dashboard/dashboard.component';
 import { STAFF_ROUTES } from './staff/staff.routes';
 

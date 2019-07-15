@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
-import { TimePickerComponent } from './time-picker/time-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from './notifications/alert.service';
 
 @NgModule({
   imports: [
@@ -13,14 +13,12 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     NavbarComponent,
-    TimePickerComponent
   ],
   exports: [
-    NavbarComponent,
-    TimePickerComponent
+    NavbarComponent
   ],
-  bootstrap: [
-    TimePickerComponent
+  providers: [
+    AlertService
   ]
 })
 export class SharedModule { }

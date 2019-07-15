@@ -1,7 +1,6 @@
 
 <div class="login-container">
-  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitData()">
-
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitData()" #form="ngForm">
     <img class="login-form__img" src="../../../assets/images/logo-psl-2019.png" alt="psl_logo">
 
     <span class="login-form__title">
@@ -9,15 +8,15 @@
     </span>
 
     <div class="login-form__validation">
+      <i class="fas fa-user"></i>
       <input class="login-form__validation__input" type="email" placeholder="Email" formControlName="email">
     </div>
 
     <div class="login-form__validation">
+      <i class="fas fa-unlock-alt"></i>
       <input class="login-form__validation__input" type="password" style="font-size: 22px" placeholder="Password" formControlName="password">
     </div>
 
-
-
-    <button class="login-form__btn" type="submit"> LOGIN </button>
+    <button class="btn btn-primary login-form__btn" type="submit" [disabled]="!form.valid"> LOGIN </button>
   </form>
 </div>

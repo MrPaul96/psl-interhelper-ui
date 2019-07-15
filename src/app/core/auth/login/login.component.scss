@@ -1,11 +1,11 @@
-@import '../../../assets/scss/variables';
+@import '../../../../assets/scss/variables';
 
 .login-container {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('../../../assets/images/developer-bg.jpg');
+  background-image: url('../../../../assets/images/developer-bg.jpg');
   background-size: contain;
   background-size: cover;
   background-repeat: no-repeat;
@@ -45,6 +45,12 @@
       position: relative;
       border-bottom: 2px solid rgba(255, 255, 255, 0.24);
       margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+
+      .fas fa-user{
+        margin-left: 10px;
+      }
       &__input {
         font-family: $main_font;
         font-size: 17px;
@@ -58,7 +64,7 @@
         border-left: none;
         border-top: none;
         background: 0 0;
-        padding: 0 5px 0 38px;
+        padding: 0 5px 0 25px;
         outline: none;
         overflow: visible;
 

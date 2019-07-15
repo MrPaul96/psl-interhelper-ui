@@ -37,7 +37,7 @@
       <i class="fas fa-chevron-right"></i>
     </div>
   </div>
-
+ 
   <button class="btn btn-primary calendar-header__btn" (click)="createInterview()" type="submit">
     Program Interview
   </button>
@@ -54,6 +54,7 @@
       [viewDate]="viewDate"
       [events]="calendarEvents"
       (eventClicked)="editInterview($event)"
+      [refresh]="refresh"
       >
     </mwl-calendar-month-view>
     <mwl-calendar-week-view
@@ -61,6 +62,7 @@
       [viewDate]="viewDate"
       [events]="calendarEvents"
       (eventClicked)="editInterview($event)"
+      [refresh]="refresh"
       >
     </mwl-calendar-week-view>
 

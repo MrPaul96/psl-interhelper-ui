@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyC2IEgiVnGLlPaIr8Dz2d6y3g9sMl6tjGg',
+    authDomain: 'psl-interhelper.firebaseapp.com',
+    databaseURL: 'https://psl-interhelper.firebaseio.com',
+    projectId: 'psl-interhelper',
+    storageBucket: 'psl-interhelper.appspot.com',
+    messagingSenderId: '588878143413',
+    appId: '1:588878143413:web:0f4ecd882747f461'
+  }
 };
 
 /*
